@@ -1,6 +1,6 @@
 package com.projectToLearn.springProject.service.category;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.projectToLearn.springProject.domain.Category;
 import com.projectToLearn.springProject.exception.AlreadyExistsExeption;
+import com.projectToLearn.springProject.exception.ResourceNotFoundException;
 import com.projectToLearn.springProject.repository.CategoryRepository;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +21,9 @@ public class CategoryService implements ICategoryService {
 
   @Override
   public void deleteCategoryById(Long id) {
+    Category categoryFromDb = this.categoryRepository.findById(id)
+    .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+    categoryFromDb.setName("null"); // avoid warning
     this.categoryRepository.deleteById(id);  
   }
 
@@ -30,14 +34,7 @@ public class CategoryService implements ICategoryService {
 
   @Override
   public List<Category> getCategoriesByName(String name) {
-    List<Category> categories = new ArrayList<>();
-    List<Category> categorisFromDb = this.categoryRepository.findAll();
-    for(Category c : categorisFromDb){
-      if(c.getName().equals(name)){
-        categories.add(c);
-      }
-    }
-    return categories;
+    return this.categoryRepository.findByName(name);
   }
 
   @Override
@@ -55,9 +52,10 @@ public class CategoryService implements ICategoryService {
 
   @Override
   public Category updateCategory(Long id, Category category) {
-    Category categoryFromDb = this.categoryRepository.findById(id).get();
+    Category categoryFromDb = this.categoryRepository.findById(id)
+    .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
     categoryFromDb.setName(category.getName());
-    return categoryFromDb;
+    return this.categoryRepository.save(categoryFromDb);
   }
   
 }
