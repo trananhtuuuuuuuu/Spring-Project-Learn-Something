@@ -1,6 +1,9 @@
 package com.projectToLearn.springProject.service.product;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
 
 import com.projectToLearn.springProject.domain.Category;
 import com.projectToLearn.springProject.domain.Product;
@@ -9,6 +12,7 @@ import com.projectToLearn.springProject.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
+@Service
 public class ProductService implements IProductService {
 
   private ProductRepository productRepository;
@@ -36,26 +40,49 @@ public class ProductService implements IProductService {
   public Product updateProductById(Long id, Product product) {
     Product productFromDb = this.productRepository.findById(id).get();
     productFromDb.setName(product.getName());
-    productFromDb.setBrand(null);
+    productFromDb.setBrand(product.getBrand());
+    productFromDb.setCategory(product.getCategory());
+    productFromDb.setDescription(product.getDescription());
+    productFromDb.setImages(product.getImages()); // deep set (need fix)
+    productFromDb.setInventory(product.getInventory());
+    productFromDb.setPrice(product.getPrice());
     return null;
   }
 
   @Override
   public List<Product> getProductsByBrand(String brand) {
-    // TODO Auto-generated method stub
-    return null;
+    List<Product> products = new ArrayList<>();
+    List<Product> productFromDb = this.productRepository.findAll();
+    for(Product p : productFromDb){
+      if(p.getBrand().equals(brand)){
+        products.add(p);
+      }
+    }
+    return products;
   }
 
   @Override
   public List<Product> getProductsByCategory(Category category) {
-    // TODO Auto-generated method stub
-    return null;
+    List<Product> products = new ArrayList<>();
+    List<Product> productFromDb = this.productRepository.findAll();
+    for(Product p : productFromDb){
+      if(p.getCategory().equals(category)){
+        products.add(p);
+      }
+    }
+    return products;
   }
 
   @Override
   public List<Product> getProductsByName(String name) {
-    // TODO Auto-generated method stub
-    return null;
+    List<Product> products = new ArrayList<>();
+    List<Product> productFromDb = this.productRepository.findAll();
+    for(Product p : productFromDb){
+      if(p.getName().equals(name)){
+        products.add(p);
+      }
+    }
+    return products;
   }
   
 }
