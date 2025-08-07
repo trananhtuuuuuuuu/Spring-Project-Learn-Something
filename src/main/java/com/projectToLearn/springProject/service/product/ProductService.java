@@ -1,13 +1,16 @@
 package com.projectToLearn.springProject.service.product;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.projectToLearn.springProject.domain.Category;
 import com.projectToLearn.springProject.domain.Product;
+import com.projectToLearn.springProject.dto.ProductDto;
 import com.projectToLearn.springProject.repository.ProductRepository;
+import com.projectToLearn.springProject.request.AddProductRequest;
+import com.projectToLearn.springProject.request.UpdateProductRequest;
 
 import lombok.AllArgsConstructor;
 
@@ -16,73 +19,176 @@ import lombok.AllArgsConstructor;
 public class ProductService implements IProductService {
 
   private ProductRepository productRepository;
+
+
+
+
   @Override
   public void deleteProductById(Long id) {
-    this.productRepository.deleteById(id);
+   // Todo
   }
+
+
+
+
+
+
 
   @Override
   public List<Product> getAllProducts() {
     return this.productRepository.findAll();
   }
 
+
+
+
+
+
+
   @Override
   public Product getProductById(Long id) {
-    return this.productRepository.findById(id).get();
+    return null; // Todo
   }
 
-  @Override
-  public Product saveProduct(Product product) {
-    return this.productRepository.save(product);
-  }
+
+
+
+
+
+
 
   @Override
-  public Product updateProductById(Long id, Product product) {
-    Product productFromDb = this.productRepository.findById(id).get();
-    productFromDb.setName(product.getName());
-    productFromDb.setBrand(product.getBrand());
-    productFromDb.setCategory(product.getCategory());
-    productFromDb.setDescription(product.getDescription());
-    productFromDb.setImages(product.getImages()); // deep set (need fix)
-    productFromDb.setInventory(product.getInventory());
-    productFromDb.setPrice(product.getPrice());
-    return null;
+  public Product saveProduct(AddProductRequest product) {
+    return null; // Todo
   }
+
+
+
+
+
+
+
+
+
+
+  @Override
+  public Product updateProductById(Long id, UpdateProductRequest product) {
+    return null; // Todo
+  }
+
+
+
+
+
+
+
+
+
+
+
 
   @Override
   public List<Product> getProductsByBrand(String brand) {
-    List<Product> products = new ArrayList<>();
-    List<Product> productFromDb = this.productRepository.findAll();
-    for(Product p : productFromDb){
-      if(p.getBrand().equals(brand)){
-        products.add(p);
-      }
-    }
-    return products;
+    return this.productRepository.findByBrand(brand);
   }
 
+
+
+
+
+
+
+
+
+
+
   @Override
-  public List<Product> getProductsByCategory(Category category) {
-    List<Product> products = new ArrayList<>();
-    List<Product> productFromDb = this.productRepository.findAll();
-    for(Product p : productFromDb){
-      if(p.getCategory().equals(category)){
-        products.add(p);
-      }
-    }
-    return products;
+  public List<Product> getProductsByCategoryName(Category category) {
+    return this.productRepository.findByCategoryName(category.getName());
   }
+
+
+
+
+
+
+
+
+
+
+
+
 
   @Override
   public List<Product> getProductsByName(String name) {
-    List<Product> products = new ArrayList<>();
-    List<Product> productFromDb = this.productRepository.findAll();
-    for(Product p : productFromDb){
-      if(p.getName().equals(name)){
-        products.add(p);
-      }
-    }
-    return products;
+    return this.productRepository.findByName(name);
   }
+
+
+
+
+
+
+
+
+
+
+
+
+  @Override
+  public List<Product> getProductByCategoryNameAndBrand(Category category, 
+  String brand) {
+    return this.productRepository.findByCategoryNameAndBrand(category.getName(), brand);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  @Override
+  public List<Product> getProductsByBrandAndName(String brand, String name) {
+    return this.productRepository.findByBrandAndName(brand, name);
+  }
+
+
+
+
+
+
+
+
+
+
+  @Override
+  public Long getCountByBrandAndName(String brand, String name) {
+    return this.productRepository.countByBrandAndName(brand, name);
+  }
+
+
+
+
+
+
+
+  @Override
+  public List<ProductDto> getConvertedProducts(List<Product> products) {
+    return null; // Todo
+  }
+
+
+
+
+
+
+
+
+
   
 }
