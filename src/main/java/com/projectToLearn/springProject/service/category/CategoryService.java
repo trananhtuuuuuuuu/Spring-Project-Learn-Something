@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.projectToLearn.springProject.domain.Category;
+import com.projectToLearn.springProject.exception.AlreadyExistsExeption;
 import com.projectToLearn.springProject.repository.CategoryRepository;
 
 import lombok.AllArgsConstructor;
@@ -46,6 +47,9 @@ public class CategoryService implements ICategoryService {
 
   @Override
   public Category saveCategory(Category category) {
+    if(this.categoryRepository.existsByName(category.getName())){
+      throw new AlreadyExistsExeption(category.getName() + "already exists");
+    }
     return this.categoryRepository.save(category);
   }
 
