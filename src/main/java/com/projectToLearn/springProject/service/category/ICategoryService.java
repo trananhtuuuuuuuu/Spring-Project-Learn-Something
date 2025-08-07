@@ -1,7 +1,9 @@
 package com.projectToLearn.springProject.service.category;
 
 import java.util.List;
-import java.util.Locale.Category;
+
+import com.projectToLearn.springProject.domain.Category;
+
 
 public interface ICategoryService {
 
@@ -19,7 +21,7 @@ public interface ICategoryService {
 
 
 
-  Category updateCategory(Category category);
+  Category updateCategory(Long id, Category category);
 
 
 
