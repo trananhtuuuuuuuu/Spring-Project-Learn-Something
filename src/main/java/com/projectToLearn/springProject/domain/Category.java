@@ -2,7 +2,7 @@ package com.projectToLearn.springProject.domain;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,7 +30,7 @@ public class Category {
   @Column(name="name")
   private String name;
 
-  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "category")
   private List<Product> products;
 
   public Category(String name){
