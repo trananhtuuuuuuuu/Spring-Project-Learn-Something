@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
   @Id
@@ -54,6 +56,11 @@ public class User {
   public String toString() {
     return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password="
         + password + "]";
+  }
+
+  public User orElseThrow(Object object) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
   }
 
   
