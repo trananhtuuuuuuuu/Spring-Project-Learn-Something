@@ -16,14 +16,16 @@ public class UserDto {
   String password;
   String roleName;
 
+  
+
+
+
   public UserDto(
     String email,
-    String password,
-    String roleName
+    String password
   ){
     this.email = email;
     this.password = password;
-    this.roleName = roleName;
   }
 
   public UserDto(
@@ -38,6 +40,18 @@ public class UserDto {
     this.lastName = lastName;
     this.email = email;
     this.roleName = roleName;
+  }
+
+
+
+  public UserDto(
+    String firstName,
+    String lastName,
+    String email
+  ){
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
   }
 
 
