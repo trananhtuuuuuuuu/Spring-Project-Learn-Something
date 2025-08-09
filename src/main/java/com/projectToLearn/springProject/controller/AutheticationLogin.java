@@ -3,7 +3,6 @@ package com.projectToLearn.springProject.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projectToLearn.springProject.domain.User;
-import com.projectToLearn.springProject.dto.UserDto;
 import com.projectToLearn.springProject.dto.UserDtoResponse;
 import com.projectToLearn.springProject.dto.UserLoginDto;
 
