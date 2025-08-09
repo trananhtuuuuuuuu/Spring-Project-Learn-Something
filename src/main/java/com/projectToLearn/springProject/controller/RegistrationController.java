@@ -21,7 +21,7 @@ public class RegistrationController {
   private final UserService userService;
   private final RoleService roleService;
 
-  @PostMapping("/admin/registrations")
+  @PostMapping("/api/admin/registrations")
   public ResponseEntity<ApiResponse<UserDto>> postCreateUser(
     @RequestBody UserDto userDto
   ){
