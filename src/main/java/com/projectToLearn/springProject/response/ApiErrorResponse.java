@@ -11,5 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ApiErrorResponse {
   private Object error;
-  private String message;
+  private Object message;
 }
