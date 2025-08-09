@@ -2,6 +2,7 @@ package com.projectToLearn.springProject.service.user;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.projectToLearn.springProject.domain.User;
@@ -16,9 +17,11 @@ import lombok.AllArgsConstructor;
 public class UserService implements IUserService {
   
   private final UserRepository userRepository;
+
+  private final PasswordEncoder passwordEncoder;
   
   @Override
-  public void deleteUserById(Long id) throws ResourceNotFoundException{
+  public void deleteUserById(Long id) {
     // TODO
     User user = this.userRepository.findById(id)
                                    .orElseThrow(() -> new ResourceNotFoundException(
@@ -34,28 +37,31 @@ public class UserService implements IUserService {
   }
 
   @Override
-  public User getUserByEmail(String email) throws ResourceNotFoundException{
-    return this.userRepository.findByEmail(email)
-    .orElseThrow(new ResourceNotFoundException("Email not found"));
+  public User getUserByEmail(String email) {
+    return this.userRepository.findByEmail(email).orElseThrow(
+      () -> new ResourceNotFoundException("Email not found")
+    );
   }
 
   @Override
-  public User getUserById(Long id) throws ResourceNotFoundException{
+  public User getUserById(Long id) {
     return this.userRepository.findById(id).orElseThrow(
       () -> new ResourceNotFoundException("User not found")
     );
   }
 
   @Override
-  public User saveUser(User user) throws AlreadyExistsExeption{
+  public User saveUser(User user) {
     if(this.userRepository.existsByEmail(user.getEmail())){
       new AlreadyExistsExeption("Already email");
     }
+    String hashPassword = this.passwordEncoder.encode(user.getPassword());
+    user.setPassword(hashPassword);
     return this.userRepository.save(user);
   }
 
   @Override
-  public User updateUserById(Long id, User user) throws ResourceNotFoundException{
+  public User updateUserById(Long id, User user) {
     User userFromDb = this.userRepository.findById(id).orElseThrow(
       () -> new ResourceNotFoundException("User not found")
     );
