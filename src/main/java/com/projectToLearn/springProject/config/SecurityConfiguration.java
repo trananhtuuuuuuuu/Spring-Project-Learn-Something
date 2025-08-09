@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationEntryPoint;
+import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -21,19 +23,29 @@ public class SecurityConfiguration {
 
   @Bean 
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-    http.authorizeHttpRequests(
-      requests ->requests
+    http
+    .csrf(csrf -> csrf.disable())
+    .authorizeHttpRequests(
+      requests -> requests
       .requestMatchers(HttpMethod.POST, "/admin/**").permitAll()
       .requestMatchers("/", "/admin").permitAll()
+      .requestMatchers(HttpMethod.POST, "/login").permitAll()
       .anyRequest().authenticated()
     )
-    .csrf(csrf -> csrf.disable())
+    // .oauth2ResourceServer((oauth2) -> oauth2
+    //   .jwt(Customizer.withDefaults())
+    //   .authenticationEntryPoint(customAuthenticationEntryPoint))
+    .exceptionHandling(
+          exceptions -> exceptions
+                  .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint()) //401
+                   .accessDeniedHandler(new BearerTokenAccessDeniedHandler())) //403
+
+    .formLogin(f -> f.disable())
     .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             );
     return http.build();
   }
-
 
 
 
