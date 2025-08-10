@@ -28,6 +28,14 @@ public class GlobalException {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiErrorResponse);
   }
 
+  @ExceptionHandler(EmailNotValidException.class)
+  public ResponseEntity<Object> handleNotValidEmail(EmailNotValidException ex){
+    ApiErrorResponse apiErrorResponse = new ApiErrorResponse();
+    apiErrorResponse.setError("Email not valid");
+    apiErrorResponse.setMessage(ex.getMessage());
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiErrorResponse);
+  }
+
 
   @ExceptionHandler(value={
     ResourceNotFoundException.class,
