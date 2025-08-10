@@ -19,11 +19,13 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -103,6 +105,15 @@ public class UserController {
     apiResponse.setMessage(HttpStatus.OK.getReasonPhrase());
     apiResponse.setData(this.userMapper.userToUserDtoResponse(userUpdated));
 
+    return ResponseEntity.ok(apiResponse);
+  }
+
+  @DeleteMapping("/api/admin/users/{userId}")
+  public ResponseEntity<Object> deleteUserId(@PathVariable Long userId){
+    ApiResponse<UserDtoResponse> apiResponse = new ApiResponse<UserDtoResponse>();
+    apiResponse.setMessage(HttpStatus.OK.getReasonPhrase());
+    apiResponse.setData(this.userMapper.userToUserDtoResponse(this.userService.getUserById(userId)));
+    this.userService.deleteUserById(userId);
     return ResponseEntity.ok(apiResponse);
   }
   
