@@ -20,7 +20,7 @@ A comprehensive RESTful API backend for an e-commerce shopping cart system built
 ## Database Schema
 
 ### Entity Relationship Overview
-![Database Schema](https://raw.githubusercontent.com/trananhtuuuuuuuu/Spring-Project-Learn-Something/main/src/main/resources/schema.png)
+<img src=".src/main/resources/schema.png" alt="Database Schema">
 
 
 ### Core Entities
