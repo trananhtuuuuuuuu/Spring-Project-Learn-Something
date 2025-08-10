@@ -72,6 +72,16 @@ public class User {
         + password + "]";
   }
 
+  public User(String firstName, 
+  String lastName, 
+  String email, 
+  Role role) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.role = role;
+  }
+
   
   
 }
