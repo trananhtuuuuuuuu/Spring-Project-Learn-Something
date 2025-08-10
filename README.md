@@ -20,18 +20,8 @@ A comprehensive RESTful API backend for an e-commerce shopping cart system built
 ## Database Schema
 
 ### Entity Relationship Overview
-![Database Schema](src/main/resources/schema.png)
-```
-User ──────────────── Role
- │                    
- ├─── Cart ─────────── CartDetail ──── Product
- │                                       │
- └─── Order ────────── OrderDetail ──────┤
-                                         │
-                    Category ────────────┤
-                                         │
-                    Image ───────────────┘
-```
+![Database Schema](./src/main/resources/schema.png)
+
 
 ### Core Entities
 
