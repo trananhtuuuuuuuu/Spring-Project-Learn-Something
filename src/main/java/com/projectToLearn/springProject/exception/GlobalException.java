@@ -20,6 +20,15 @@ import com.projectToLearn.springProject.response.ApiErrorResponse;
 @ControllerAdvice
 public class GlobalException {
 
+  @ExceptionHandler(IdNotFoundException.class)
+  public ResponseEntity<Object> handleNotFoundUserId(IdNotFoundException ex){
+    ApiErrorResponse apiErrorResponse = new ApiErrorResponse();
+    apiErrorResponse.setError("Id Error");
+    apiErrorResponse.setMessage(ex.getMessage());
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiErrorResponse);
+  }
+
+
   @ExceptionHandler(value={
     ResourceNotFoundException.class,
     BadCredentialsException.class
