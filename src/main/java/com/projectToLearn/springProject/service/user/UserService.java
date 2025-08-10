@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.projectToLearn.springProject.domain.User;
 import com.projectToLearn.springProject.exception.AlreadyExistsExeption;
+import com.projectToLearn.springProject.exception.IdNotFoundException;
 import com.projectToLearn.springProject.exception.ResourceNotFoundException;
 import com.projectToLearn.springProject.repository.UserRepository;
 
@@ -46,7 +47,7 @@ public class UserService implements IUserService {
   @Override
   public User getUserById(Long id) {
     return this.userRepository.findById(id).orElseThrow(
-      () -> new ResourceNotFoundException("User not found")
+      () -> new IdNotFoundException("Id not found")
     );
   }
 
