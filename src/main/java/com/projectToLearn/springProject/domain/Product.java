@@ -58,6 +58,11 @@ public class Product {
   private List<ProductShop> productShops;
 
 
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+  private List<CartDetail> cartDetails;
+
+
+
   public Product(String name, 
   String brand, 
   BigDecimal price, 
