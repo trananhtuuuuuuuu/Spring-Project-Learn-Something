@@ -47,12 +47,15 @@ public class Product {
   @Column(name="description")
   private String description;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne
   @JoinColumn(name="category_id")
   private Category category;
 
   @OneToMany(mappedBy = "image", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Image> images;
+
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+  private List<ProductShop> productShops;
 
 
   public Product(String name, 
