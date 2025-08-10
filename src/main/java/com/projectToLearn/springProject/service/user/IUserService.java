@@ -17,5 +17,6 @@ public interface IUserService {
 
   User updateUserById(Long id, User user);
 
+  boolean isValidEmail(String email);
 
 }

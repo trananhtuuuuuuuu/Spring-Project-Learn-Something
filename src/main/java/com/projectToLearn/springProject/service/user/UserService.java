@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.projectToLearn.springProject.domain.User;
 import com.projectToLearn.springProject.exception.AlreadyExistsExeption;
+import com.projectToLearn.springProject.exception.EmailNotValidException;
 import com.projectToLearn.springProject.exception.IdNotFoundException;
 import com.projectToLearn.springProject.exception.ResourceNotFoundException;
 import com.projectToLearn.springProject.repository.UserRepository;
@@ -39,9 +40,15 @@ public class UserService implements IUserService {
 
   @Override
   public User getUserByEmail(String email) {
-    return this.userRepository.findByEmail(email).orElseThrow(
-      () -> new ResourceNotFoundException("Email not found")
-    );
+    if(!this.isValidEmail(email)){
+      throw new EmailNotValidException("Wrong email");
+    }
+
+    if(!this.userRepository.existsByEmail(email)){
+      throw new AlreadyExistsExeption("Not Already email");
+    }
+    
+    return this.userRepository.findByEmail(email).get();
   }
 
   @Override
@@ -53,9 +60,15 @@ public class UserService implements IUserService {
 
   @Override
   public User saveUser(User user) {
+
+    if(!this.isValidEmail(user.getEmail())){
+      new EmailNotValidException("Wrong email");
+    }
+
     if(this.userRepository.existsByEmail(user.getEmail())){
       new AlreadyExistsExeption("Already email");
     }
+    
     String hashPassword = this.passwordEncoder.encode(user.getPassword());
     user.setPassword(hashPassword);
     return this.userRepository.save(user);
@@ -71,6 +84,12 @@ public class UserService implements IUserService {
     userFromDb.setEmail(user.getEmail());
     
     return userFromDb;
+  }
+
+  @Override
+  public boolean isValidEmail(String email) {
+    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+    return email != null && email.matches(emailRegex);
   }
   
 }
