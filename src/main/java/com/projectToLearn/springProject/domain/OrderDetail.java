@@ -15,13 +15,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Entity
-@Table(name="cart_detail")
+@Table(name="order_detail")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartDetail {
+public class OrderDetail {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,14 +35,14 @@ public class CartDetail {
   private BigDecimal unitPrice;
 
   @ManyToOne
-  @JoinColumn(name="cart_id")
-  private Cart cart;
-
-  @ManyToOne
-  @JoinColumn(name="product_id")
-  private Product product;
+  @JoinColumn(name = "order_id")
+  private Order order;
 
   @ManyToOne
   @JoinColumn(name="shop_id")
   private Shop shop;
+
+  @ManyToOne
+  @JoinColumn(name="producct_id")
+  private Product product;
 }

@@ -62,6 +62,10 @@ public class Product {
   private List<CartDetail> cartDetails;
 
 
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+  private List<OrderDetail> orderDetails;
+
+
 
   public Product(String name, 
   String brand, 

@@ -51,5 +51,9 @@ public class Shop {
 
   @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
   private List<CartDetail> cartDetails;
+
+  @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
+  private List<OrderDetail> orderDetails;
+
   
 }
