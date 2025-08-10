@@ -1,14 +1,25 @@
 package com.projectToLearn.springProject.mapper;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
+
+import com.projectToLearn.springProject.domain.Role;
 import com.projectToLearn.springProject.domain.User;
 import com.projectToLearn.springProject.dto.UserDto;
 import com.projectToLearn.springProject.dto.UserDtoResponse;
+import com.projectToLearn.springProject.dto.UserDtoUpdate;
+import com.projectToLearn.springProject.service.role.RoleService;
 
 
-@Service
+
+@Component
 public class UserMapper {
+  private final RoleService roleService;
+  
+  public UserMapper(RoleService roleService) {
+      this.roleService = roleService;
+  }
+
   public User userDtoToUser(
     UserDto userDto){
     return new User(
@@ -17,6 +28,20 @@ public class UserMapper {
       userDto.getEmail(),
       userDto.getPassword()
     );
+  }
+
+
+  public User userDtoUpdateToUser(
+    UserDtoUpdate userDtoUpdate
+  ){
+    Role role = this.roleService.getRoleByName(userDtoUpdate.getRole());
+    User user = new User(
+      userDtoUpdate.getFirstName(),
+      userDtoUpdate.getLastName(),
+      userDtoUpdate.getEmail(),
+      role
+    );
+    return user;
   }
 
 
