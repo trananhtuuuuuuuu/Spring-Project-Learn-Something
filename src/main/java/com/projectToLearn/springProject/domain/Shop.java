@@ -49,5 +49,7 @@ public class Shop {
   private List<ProductShop> productShops;
 
 
+  @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
+  private List<CartDetail> cartDetails;
   
 }
