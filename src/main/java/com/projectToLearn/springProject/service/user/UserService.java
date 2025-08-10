@@ -47,7 +47,7 @@ public class UserService implements IUserService {
     if(!this.userRepository.existsByEmail(email)){
       throw new AlreadyExistsExeption("Not Already email");
     }
-    
+
     return this.userRepository.findByEmail(email).get();
   }
 
@@ -82,8 +82,8 @@ public class UserService implements IUserService {
     userFromDb.setFirstName(user.getFirstName());
     userFromDb.setLastName(user.getLastName());
     userFromDb.setEmail(user.getEmail());
-    
-    return userFromDb;
+    userFromDb.setRole(user.getRole());
+    return this.saveUser(userFromDb);
   }
 
   @Override
