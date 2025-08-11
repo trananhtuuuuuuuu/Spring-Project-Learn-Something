@@ -123,11 +123,17 @@ public class ProductService implements IProductService {
 
 
 
-  @Override
-  public Product getProductsByCategoryName(Category category) {
-    return this.productRepository.findByCategoryName(category.getName());
-  }
+  // @Override
+  // public Product getProductsByCategoryName(String categoryName) {
+  //   return this.productRepository.findByCategoryName(categoryName);
+  // }
 
+
+
+  @Override
+  public List<Product> getProductsByCategoriesName(String category) {
+    return this.productRepository.findByCategoryName(category);
+  }
 
 
   @Override
@@ -138,9 +144,9 @@ public class ProductService implements IProductService {
 
 
   @Override
-  public List<Product> getProductByCategoryNameAndBrand(Category category, 
+  public List<Product> getProductByCategoryNameAndBrand(String category, 
   String brand) {
-    return this.productRepository.findByCategoryNameAndBrand(category.getName(), brand);
+    return this.productRepository.findByCategoryNameAndBrand(category, brand);
   }
 
 
@@ -155,6 +161,19 @@ public class ProductService implements IProductService {
     return this.productRepository.countByBrandAndName(brand, name);
   }
 
+
+  
+
+  @Override
+  public Long getCountProductByBrand(String brand) {
+    return this.productRepository.countByBrand(brand);
+  }
+
+
+  @Override
+  public Long getCountProductByName(String name) {
+    return this.productRepository.countByName(name);
+  }
 
 
   @Override
