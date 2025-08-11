@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CategoryService implements ICategoryService {
 
-  private CategoryRepository categoryRepository;
+  private final CategoryRepository categoryRepository;
 
   @Override
   public void deleteCategoryById(Long id) {
@@ -33,7 +33,7 @@ public class CategoryService implements ICategoryService {
   }
 
   @Override
-  public List<Category> getCategoriesByName(String name) {
+  public Category getCategoriesByName(String name) {
     return this.categoryRepository.findByName(name);
   }
 
