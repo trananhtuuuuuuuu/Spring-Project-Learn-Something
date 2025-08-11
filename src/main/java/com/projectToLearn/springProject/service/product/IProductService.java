@@ -12,55 +12,31 @@ public interface IProductService {
 
   List<Product> getAllProducts();
 
+  boolean alreadyProduct(Product product);
 
-
-
-  
   Product getProductById(Long id);
 
+  Product addProduct(AddProductRequest addProductRequest);
 
-
-
-
-  Product saveProduct(AddProductRequest product);
-
-
-
+  Product createProduct(AddProductRequest addProductRequest, Category category);
 
   Product updateProductById(Long id, UpdateProductRequest product);
 
-
-
-
   void deleteProductById(Long id);
 
-
-
-
-  List<Product> getProductsByCategoryName(Category category);
-
-
-
+  Product getProductsByCategoryName(Category category);
 
   List<Product> getProductsByName(String name);
 
-
-
   List<Product> getProductsByBrand(String brand);
-
 
   List<Product> getProductsByBrandAndName(String brand, String name);
 
-
   List<Product> getProductByCategoryNameAndBrand(Category category, String brand);
-
 
   List<ProductDto> getConvertedProducts(List<Product> products);
 
-
   Long getCountByBrandAndName(String brand, String name);
-
-
 
 
 }
