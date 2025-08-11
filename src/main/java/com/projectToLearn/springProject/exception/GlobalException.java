@@ -28,6 +28,24 @@ public class GlobalException {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiErrorResponse);
   }
 
+  // @ExceptionHandler(ResourceNotFoundException.class)
+  // public ResponseEntity<Object> handleCategoryNameNotFound(ResourceNotFoundException ex){
+  //   ApiErrorResponse apiErrorResponse = new ApiErrorResponse();
+  //   apiErrorResponse.setError("Not found categoryName");
+  //   apiErrorResponse.setMessage(ex.getMessage());
+  //   return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiErrorResponse);
+  // }
+
+
+  @ExceptionHandler(ProductNotFoundException.class)
+  public ResponseEntity<Object> handleProductNotFound(ProductNotFoundException ex){
+    ApiErrorResponse apiErrorResponse = new ApiErrorResponse();
+    apiErrorResponse.setError("Product Not found");
+    apiErrorResponse.setMessage(ex.getMessage());
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiErrorResponse);
+  }
+
+
   @ExceptionHandler(EmailNotValidException.class)
   public ResponseEntity<Object> handleNotValidEmail(EmailNotValidException ex){
     ApiErrorResponse apiErrorResponse = new ApiErrorResponse();
