@@ -32,7 +32,8 @@ public class SecurityConfiguration {
       .requestMatchers("/", "/api/admin/**").permitAll()
       .requestMatchers(HttpMethod.POST, "/login").permitAll()
       .requestMatchers(HttpMethod.PUT, "/api/admin/users/**").permitAll()
-      .anyRequest().authenticated()
+      .requestMatchers(HttpMethod.POST, "/api/products/**").permitAll()
+      .anyRequest().permitAll()
     )
     // .oauth2ResourceServer((oauth2) -> oauth2
     //   .jwt(Customizer.withDefaults())
