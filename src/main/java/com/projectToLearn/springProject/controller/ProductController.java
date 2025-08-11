@@ -19,6 +19,7 @@ import com.projectToLearn.springProject.mapper.ProductMapper;
 import com.projectToLearn.springProject.request.AddProductRequest;
 import com.projectToLearn.springProject.request.UpdateProductRequest;
 import com.projectToLearn.springProject.response.ApiResponse;
+import com.projectToLearn.springProject.response.ApiResponseCount;
 import com.projectToLearn.springProject.service.product.ProductService;
 
 import jakarta.validation.Valid;
@@ -27,6 +28,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -109,5 +112,200 @@ public class ProductController {
     apiResponse.setData(productDtos);
     return ResponseEntity.ok(apiResponse);
   }
+
+
+  @GetMapping("/api/products/brand")
+  public ResponseEntity<Object> getProductsByBrand(
+    @RequestParam String brand
+    ) {
+    ApiResponse<List<ProductDto>> apiResponse = new ApiResponse<List<ProductDto>>();
+
+    List<Product> products = this .productService.getProductsByBrand(brand);
+
+    List<ProductDto> productDtos = new ArrayList<>();
+
+    for(Product p : products){
+      productDtos.add(this.productMapper.ProductMapperProductDto(p));
+    }
+
+    apiResponse.setMessage("Successful get product by brand");
+    apiResponse.setData(productDtos);
+
+    return ResponseEntity.ok(apiResponse);
+  }
+
+
+  @GetMapping("/api/products/brand&name")
+  public ResponseEntity<Object> getProductsByBrandAndName(
+    @RequestParam String brand,
+    @RequestParam String name
+    ) {
+
+    List<Product> products = this.productService.getProductsByBrandAndName(
+      brand, name
+    );
+    List<ProductDto> productDtos = new ArrayList<>();
+
+    for(Product p : products){
+      productDtos.add(this.productMapper.ProductMapperProductDto(p));
+    }
+
+    ApiResponse<List<ProductDto>> apiResponse = new ApiResponse<List<ProductDto>>();
+
+    apiResponse.setMessage("Successful API brand and name");
+    apiResponse.setData(productDtos);
+
+    return ResponseEntity.ok(apiResponse);
+  }
+
+
+  @GetMapping("/api/products/category")
+  public ResponseEntity<Object> getProductByCategory(
+    @RequestParam String category
+  ){
+
+    List<Product> products = this.productService.getProductsByCategoriesName(category);
+    List<ProductDto> productDtos = new ArrayList<>();
+
+    for(Product p : products){
+      productDtos.add(this.productMapper.ProductMapperProductDto(p));
+    }
+    ApiResponse<List<ProductDto>> apiResponse = new ApiResponse<List<ProductDto>>();
+    apiResponse.setMessage("Successful category");
+    apiResponse.setData(productDtos);
+
+    return ResponseEntity.ok(apiResponse);
+  }
+
+
+  @GetMapping("/api/products/name")
+  public ResponseEntity<Object> getProductsByName(
+    @RequestParam String name
+  ) {
+
+    ApiResponse<List<ProductDto>> apiResponse = new ApiResponse<List<ProductDto>>();
+
+    List<Product> products = this.productService.getProductsByName(name);
+    List<ProductDto> productDtos = new ArrayList<>();
+
+    for(Product p : products){
+      productDtos.add(this.productMapper.ProductMapperProductDto(p));
+    }
+
+    apiResponse.setMessage("Successful name");
+    apiResponse.setData(productDtos);
+
+    return ResponseEntity.ok(apiResponse);
+  }
+
+
+  @GetMapping("/api/products/category&brand")
+  public ResponseEntity<Object> getProductsByCategoryNameAndBrand(
+    @RequestParam String category,
+    @RequestParam String brand
+  ){
+
+    ApiResponse<List<ProductDto>> apiResponse = new ApiResponse<List<ProductDto>>();
+
+    List<Product> products = this.productService.getProductByCategoryNameAndBrand(
+      category, brand
+    );
+
+    List<ProductDto> productDtos = new ArrayList<>();
+
+    for(Product p : products){
+      productDtos.add(this.productMapper.ProductMapperProductDto(p));
+    }
+
+    apiResponse.setMessage("Successful category and name");
+    apiResponse.setData(productDtos);
+
+    return ResponseEntity.ok(apiResponse);
+  }
+
+
+  @GetMapping("/api/products/count/brand&name")
+  public ResponseEntity<Object> getCountByBrandAndName(
+    @RequestParam String brand,
+    @RequestParam String name
+  ) {
+
+  ApiResponseCount<List<ProductDto>> apiResponseCount = new ApiResponseCount<List<ProductDto>>();
+
+
+    List<Product> products = this.productService.getProductsByBrandAndName(
+      brand, name
+    );
+
+    Long countProduct = this.productService.getCountByBrandAndName(brand, name);
+
+    List<ProductDto> productDtos = new ArrayList<>();
+    
+    for(Product p : products){
+      productDtos.add(this.productMapper.ProductMapperProductDto(p));
+    }
+
+    apiResponseCount.setMessage("Successful brand and name");
+    apiResponseCount.setCount(countProduct);
+    apiResponseCount.setData(productDtos);
+
+    return ResponseEntity.ok(apiResponseCount);
+  }
+
+
+  @GetMapping("/api/products/count/brand")
+  public ResponseEntity<Object> getCountProductsByBrand(
+    @RequestParam String brand
+  ) {
+    ApiResponseCount<List<ProductDto>> apiResponseCount = new ApiResponseCount<List<ProductDto>>();
+
+    Long countProducts = this.productService.getCountProductByBrand(brand);
+
+    List<Product> products = this.productService.getProductsByBrand(brand);
+
+    List<ProductDto> productDtos = new ArrayList<>();
+
+    for(Product p : products){
+      productDtos.add(this.productMapper.ProductMapperProductDto(p));
+    }
+
+    apiResponseCount.setMessage("Successful Count By brand");
+    apiResponseCount.setCount(countProducts);
+    apiResponseCount.setData(productDtos);
+
+    return ResponseEntity.ok(apiResponseCount);
+  }
+
+
+  @GetMapping("/api/products/count/name")
+  public ResponseEntity<Object> getCountProductsByName(
+    @RequestParam String name
+  ) {
+    ApiResponseCount<List<ProductDto>> apiResponseCount = new ApiResponseCount<List<ProductDto>>();
+
+    Long countProducts = this.productService.getCountProductByName(name);
+
+    List<Product> products = this.productService.getProductsByName(name);
+
+    List<ProductDto> productDtos = new ArrayList<>();
+
+    for(Product p : products){
+      productDtos.add(this.productMapper.ProductMapperProductDto(p));
+    }
+
+    apiResponseCount.setMessage("Successful Count By name");
+    apiResponseCount.setCount(countProducts);
+    apiResponseCount.setData(productDtos);
+
+    return ResponseEntity.ok(apiResponseCount);
+  }
+  
+  
+  
+  
+  
+  
+  
+  
   
 }
