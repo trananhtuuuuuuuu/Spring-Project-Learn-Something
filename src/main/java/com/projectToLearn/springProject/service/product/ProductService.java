@@ -4,12 +4,14 @@ package com.projectToLearn.springProject.service.product;
 
 import java.util.List;
 
+
 import org.springframework.stereotype.Service;
 
 import com.projectToLearn.springProject.domain.Category;
 import com.projectToLearn.springProject.domain.Product;
-import com.projectToLearn.springProject.dto.ProductDto;
+
 import com.projectToLearn.springProject.exception.ProductNotFoundException;
+
 import com.projectToLearn.springProject.repository.CategoryRepository;
 import com.projectToLearn.springProject.repository.ProductRepository;
 import com.projectToLearn.springProject.request.AddProductRequest;
@@ -46,7 +48,7 @@ public class ProductService implements IProductService {
   public Product getProductById(Long id) {
     return this.productRepository.findById(id).orElseThrow(
       () -> new ProductNotFoundException("Product Not Found Id")
-    ); // Todo
+    ); 
   }
 
 
@@ -80,7 +82,35 @@ public class ProductService implements IProductService {
 
   @Override
   public Product updateProductById(Long id, UpdateProductRequest product) {
-    return null; // Todo
+    Product productFromDb = this.productRepository.findById(id).orElseThrow(
+      () -> new ProductNotFoundException("Update product Error")
+    );
+    Category category = this.categoryRepository.findByName(product.getCategoryName());
+
+    //Map<String, String> map = new HashMap<>();
+
+    
+    if(product.getBrand() != null){
+      productFromDb.setBrand(product.getBrand());
+    }
+    if(product.getCategoryName() != null){
+      productFromDb.setCategory(category);
+    }
+    if(product.getName() != null){
+      productFromDb.setName(product.getName());
+    }
+    if(product.getPrice() != null){
+      productFromDb.setPrice(product.getPrice());
+    }
+    if(product.getInventory() != null){
+      productFromDb.setInventory(product.getInventory());
+    }
+    if(product.getDescription() != null){
+      productFromDb.setDescription(product.getDescription());
+    }
+    
+
+    return this.productRepository.save(productFromDb); 
   }
 
 
@@ -125,11 +155,6 @@ public class ProductService implements IProductService {
     return this.productRepository.countByBrandAndName(brand, name);
   }
 
-
-  @Override
-  public List<ProductDto> getConvertedProducts(List<Product> products) {
-    return null; // Todo
-  }
 
 
   @Override
