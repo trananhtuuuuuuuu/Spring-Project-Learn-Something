@@ -51,7 +51,7 @@ public class GlobalException {
   @ExceptionHandler(AlreadyExistsExeption.class)
   public ResponseEntity<Object> handleUserAlreadyExists(AlreadyExistsExeption ex){
     ApiErrorResponse apiErrorResponse = new ApiErrorResponse(
-      "Email already exists", ex.getMessage()
+      "Already exists", ex.getMessage()
     );
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiErrorResponse);
   }
