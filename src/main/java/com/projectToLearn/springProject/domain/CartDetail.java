@@ -33,6 +33,9 @@ public class CartDetail {
   @Column(name="unit_price")
   private BigDecimal unitPrice;
 
+  @Column(name="subtotal")
+  private BigDecimal subtotal;
+
   @ManyToOne
   @JoinColumn(name="cart_id")
   private Cart cart;
@@ -44,4 +47,8 @@ public class CartDetail {
   @ManyToOne
   @JoinColumn(name="shop_id")
   private Shop shop;
+
+  public void setSubtotal(){
+    this.subtotal = this.unitPrice.multiply(new BigDecimal(quantity));
+  }
 }
