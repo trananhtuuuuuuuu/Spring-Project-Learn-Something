@@ -17,6 +17,7 @@ import com.projectToLearn.springProject.dto.ProductDto;
 
 import com.projectToLearn.springProject.mapper.ProductMapper;
 import com.projectToLearn.springProject.request.AddProductRequest;
+import com.projectToLearn.springProject.request.UpdateProductRequest;
 import com.projectToLearn.springProject.response.ApiResponse;
 import com.projectToLearn.springProject.service.product.ProductService;
 
@@ -25,6 +26,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -55,11 +58,27 @@ public class ProductController {
 
     ApiResponse<ProductDto> apiResponse = new ApiResponse<ProductDto>();
 
-    apiResponse.setMessage(HttpStatus.OK.getReasonPhrase());
+    apiResponse.setMessage("Created successful product");
     apiResponse.setData(this.productMapper.ProductMapperProductDto(product));
 
 
     return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
+  }
+
+
+  @PutMapping("/api/products/{productId}")
+  public ResponseEntity<Object> putUpdateProduct(
+    @PathVariable Long productId, 
+    @RequestBody UpdateProductRequest updateProductRequest) {
+
+      ApiResponse<ProductDto> apiResponse = new ApiResponse<ProductDto>();
+
+      Product product = this.productService.updateProductById(productId, updateProductRequest);
+
+      apiResponse.setMessage("Updated successfully");
+      apiResponse.setData(this.productMapper.ProductMapperProductDto(product));
+
+      return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
   }
   
 
@@ -69,7 +88,7 @@ public class ProductController {
     ApiResponse<ProductDto> apiResponse = new ApiResponse<ProductDto>();
     Product product = this.productService.getProductById(productId);
 
-    apiResponse.setMessage(HttpStatus.OK.getReasonPhrase());
+    apiResponse.setMessage("Deleted successful product");
     apiResponse.setData(this.productMapper.ProductMapperProductDto(product));
 
     return ResponseEntity.ok(apiResponse);
@@ -86,7 +105,7 @@ public class ProductController {
       ProductDto productDto = this.productMapper.ProductMapperProductDto(p);
       productDtos.add(productDto);
     }
-    apiResponse.setMessage(HttpStatus.OK.getReasonPhrase());
+    apiResponse.setMessage("Successful get all products");
     apiResponse.setData(productDtos);
     return ResponseEntity.ok(apiResponse);
   }
