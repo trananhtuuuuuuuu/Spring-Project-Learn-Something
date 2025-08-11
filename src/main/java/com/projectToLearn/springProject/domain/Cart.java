@@ -1,5 +1,6 @@
 package com.projectToLearn.springProject.domain;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -32,10 +33,43 @@ public class Cart {
   @Column(name="date_placed")
   private String datePlaced;
 
+  @Column(name="total_amount")
+  private BigDecimal totalAmount = BigDecimal.ZERO;
+
   @OneToOne
   @JoinColumn(name="user_id")
   private User user;
 
   @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
   private List<CartDetail> cartDetails;
+
+
+  public Cart(String datePlaced, 
+  BigDecimal totalAmount){
+    this.datePlaced = datePlaced;
+    this.totalAmount = totalAmount;
+  }
+
+
+  public void addProduct(CartDetail item){
+    this.cartDetails.add(item);
+    item.setCart(this);
+    this.updateTotalAmount();
+  }
+
+  public void removeItem(CartDetail item){
+    this.cartDetails.remove(item);
+    item.setCart(null);
+    this.updateTotalAmount();
+  }
+
+  private void updateTotalAmount() {
+    this.totalAmount = cartDetails.stream().map(item -> {
+        BigDecimal unitPrice = item.getUnitPrice();
+        if (unitPrice == null) {
+            return  BigDecimal.ZERO;
+        }
+        return unitPrice.multiply(BigDecimal.valueOf(item.getQuantity()));
+    }).reduce(BigDecimal.ZERO, BigDecimal::add);
+  }
 }
