@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import com.projectToLearn.springProject.domain.Shop;
+import com.projectToLearn.springProject.dto.ShopDto;
 import com.projectToLearn.springProject.request.AddShopRequest;
 
 public interface IShopService {
@@ -11,7 +12,7 @@ public interface IShopService {
 
   Shop deleteShopById(Long id);
 
-  Shop updateShopById(Long id, Shop shop);
+  Shop updateShopById(Long id, ShopDto shopDto);
 
   List<Shop> getShops();
 

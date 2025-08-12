@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.projectToLearn.springProject.domain.Shop;
+import com.projectToLearn.springProject.dto.ShopDto;
 import com.projectToLearn.springProject.exception.IdNotFoundException;
 import com.projectToLearn.springProject.repository.ShopRepository;
 import com.projectToLearn.springProject.request.AddShopRequest;
@@ -48,7 +49,7 @@ public class ShopService implements IShopService {
         addShopRequest.getAddress(),
         LocalDate.now()
     );
-    
+
     return this.shopRepository.save(shop);
   }
 
@@ -109,20 +110,20 @@ public class ShopService implements IShopService {
   }
 
   @Override
-  public Shop updateShopById(Long id, Shop shop) {
+  public Shop updateShopById(Long id, ShopDto shopDto) {
     Shop shopFromDb = this.shopRepository.findById(id).orElseThrow(
       () -> new IdNotFoundException("Not found id")
     );
-    if(shop.getName() != null){
-      shopFromDb.setName(shop.getName());
+    if(shopDto.getName() != null){
+      shopFromDb.setName(shopDto.getName());
     }
 
-    if(shop.getAddress() != null){
-      shopFromDb.setAddress(shop.getAddress());
+    if(shopDto.getAddress() != null){
+      shopFromDb.setAddress(shopDto.getAddress());
     }
 
-    if(shop.getDateOriginal() != null){
-      shopFromDb.setDateOriginal(shop.getDateOriginal());
+    if(shopDto.getDateOriginal() != null){
+      shopFromDb.setDateOriginal(shopDto.getDateOriginal());
     }
     return this.shopRepository.save(shopFromDb);
   }
