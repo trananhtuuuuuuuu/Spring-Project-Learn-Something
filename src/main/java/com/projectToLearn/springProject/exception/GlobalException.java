@@ -28,13 +28,13 @@ public class GlobalException {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiErrorResponse);
   }
 
-  // @ExceptionHandler(ResourceNotFoundException.class)
-  // public ResponseEntity<Object> handleCategoryNameNotFound(ResourceNotFoundException ex){
-  //   ApiErrorResponse apiErrorResponse = new ApiErrorResponse();
-  //   apiErrorResponse.setError("Not found categoryName");
-  //   apiErrorResponse.setMessage(ex.getMessage());
-  //   return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiErrorResponse);
-  // }
+  @ExceptionHandler(IllegalArgumentException.class)
+  public ResponseEntity<Object> handleCategoryNameNotFound(IllegalArgumentException ex){
+    ApiErrorResponse apiErrorResponse = new ApiErrorResponse();
+    apiErrorResponse.setError("Error");
+    apiErrorResponse.setMessage(ex.getMessage());
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiErrorResponse);
+  }
 
 
   @ExceptionHandler(ProductNotFoundException.class)
