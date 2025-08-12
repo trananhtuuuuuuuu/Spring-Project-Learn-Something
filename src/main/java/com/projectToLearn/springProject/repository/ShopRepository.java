@@ -18,4 +18,6 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
   @Query("select s from Shop s where year(s.dateOriginal) = :year And month(s.dateOriginal) = :month")
   List<Shop> findByMonthAndYear(@Param("month") int month,
   @Param("year") int year);
+
+  Shop findByNameAndAddress(String name, String address);
 }
