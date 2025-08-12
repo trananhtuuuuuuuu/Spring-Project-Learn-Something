@@ -1,6 +1,7 @@
 package com.projectToLearn.springProject.domain;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -35,11 +36,19 @@ public class Shop {
   private String address;
 
   @Column(name="date_original")
-  private String dateOriginal;
+  private LocalDate dateOriginal;
+
+  public int getOriginalMonth() {
+    return dateOriginal != null ? dateOriginal.getMonthValue() : 0;
+  }
+    
+  public int getOriginalYear() {
+    return dateOriginal != null ? dateOriginal.getYear() : 0;
+  }
 
   public Shop(String name,
   String address,
-  String Date){
+  LocalDate Date){
     this.name = name;
     this.address = address;
     this.dateOriginal = Date;
