@@ -47,6 +47,7 @@ public class AutheticationLogin {
       new UsernamePasswordAuthenticationToken(userLoginDto.getUserName(), userLoginDto.getPassword());
 
       // authetication that needing write loadUserByUsername function
+      @SuppressWarnings("unused")
       Authentication authetication = autheticationManagerBuilder
       .getObject()
       .authenticate(autheticationToken);
