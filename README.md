@@ -1,5 +1,6 @@
 # Shopping Cart E-Commerce Backend
 
+
 ## Project Description
 
 A comprehensive RESTful API backend for an e-commerce shopping cart system built with Spring Boot. This application provides robust functionality for managing products, users, shopping carts, and order processing with secure authentication and authorization mechanisms.
@@ -245,3 +246,124 @@ UPLOAD_PATH=/uploads/images
 ---
 
 **Happy Coding!**
+
+
+
+
+
+
+
+
+
+giải thích từng command Linux cơ bản:
+File System Commands (Quan trọng nhất)
+ls - List files
+bashls          # Hiển thị files trong thư mục hiện tại
+ls -l       # Hiển thị chi tiết (permissions, size, date)
+ls -la      # Bao gồm hidden files (.filename)
+ls -lh      # Human readable size (KB, MB, GB)
+cd - Change directory
+bashcd /home           # Di chuyển đến /home
+cd ..              # Lên thư mục cha
+cd ~               # Về home directory
+cd                 # Cũng về home directory
+pwd - Print working directory
+bashpwd                # Hiển thị đường dẫn thư mục hiện tại
+find - Tìm files
+bashfind /home -name "*.txt"     # Tìm tất cả .txt files
+find . -size +10M            # Tìm files > 10MB
+find . -type f               # Chỉ tìm files (không phải folders)
+File Content Commands
+cat - Hiển thị nội dung file
+bashcat file.txt                 # Hiển thị toàn bộ file
+cat file1.txt file2.txt      # Hiển thị nhiều files
+head/tail - Hiển thị đầu/cuối file
+bashhead -10 file.txt           # 10 dòng đầu
+tail -10 file.txt           # 10 dòng cuối
+tail -f log.txt             # Theo dõi file real-time
+grep - Tìm kiếm trong file
+bashgrep "error" log.txt        # Tìm dòng chứa "error"
+grep -i "ERROR" log.txt     # Không phân biệt hoa/thường
+grep -c "error" log.txt     # Đếm số dòng chứa "error"
+wc - Word count
+bashwc -l file.txt              # Đếm số dòng
+wc -w file.txt              # Đếm số từ
+wc -c file.txt              # Đếm số characters
+Process Management
+ps - Process status
+bashps aux                      # Hiển thị tất cả processes
+ps aux | grep java          # Chỉ Java processes
+ps -ef                      # Format khác
+Output format:
+
+USER: ai chạy process
+PID: Process ID
+%CPU: CPU usage
+%MEM: Memory usage
+COMMAND: lệnh đang chạy
+
+top - Real-time processes
+bashtop                         # Hiển thị processes theo CPU usage
+htop                        # Version đẹp hơn (nếu có)
+kill - Terminate process
+bashkill 1234                   # Kill process ID 1234
+killall java                # Kill tất cả Java processes
+System Information
+free - Memory usage
+bashfree -m                     # Hiển thị bằng MB
+free -h                     # Human readable
+df - Disk space
+bashdf -h                       # Disk usage các partitions
+du -sh /home/*              # Size của folders trong /home
+uname - System info
+bashuname -a                    # Tất cả system info
+uname -r                    # Kernel version
+uptime - System uptime
+bashuptime                      # Bao lâu system đã chạy + load average
+Text Processing
+sort - Sắp xếp
+bashsort file.txt               # Sắp xếp alphabetically
+sort -n numbers.txt         # Sắp xếp numerical
+sort -r file.txt            # Reverse order
+uniq - Loại bỏ duplicate
+bashsort file.txt | uniq        # Phải sort trước
+uniq -c file.txt            # Đếm số lần xuất hiện
+cut - Cắt columns
+bashcut -d',' -f1 data.csv      # Column 1 của CSV
+cut -c1-10 file.txt         # Characters 1-10
+Pipe và Redirection
+Pipe | - Kết nối commands
+bashps aux | grep java                    # ps kết quả đưa vào grep
+cat file.txt | sort | uniq           # Chain multiple commands
+ls -l | wc -l                        # Đếm số files
+Redirection > và >>
+bashls -l > file_list.txt               # Ghi output vào file (overwrite)
+echo "new line" >> file.txt         # Append vào file
+Thực Hành Để Hiểu
+Example 1: Tìm Java processes sử dụng nhiều CPU nhất
+bashps aux | grep java | sort -k3 -nr | head -5
+
+ps aux: list all processes
+grep java: chỉ Java processes
+sort -k3 -nr: sort theo column 3 (CPU), numerical, reverse
+head -5: 5 dòng đầu
+
+Example 2: Phân tích log file
+bashgrep "ERROR" /var/log/app.log | wc -l
+
+Đếm số dòng chứa "ERROR" trong log
+
+Example 3: Disk usage analysis
+bashdu -sh /home/* | sort -hr
+
+du -sh: size các folders
+sort -hr: sort theo human readable size, reverse
+
+
+
+
+
+
+
+
+
